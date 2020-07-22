@@ -2,62 +2,69 @@ package principal.juego.manzana;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.util.Random;
 
 import principal.Constantes;
 import principal.Herramientas;
 import principal.juego.serpiente.Cuadrado;
+import principal.juego.serpiente.Serpiente;
 import principal.maquinaestados.EstadoJuego;
-import principal.maquinaestados.estados.GestorJuego;
 
 public class Manzana implements EstadoJuego {
 
 	Cuadrado manzana;
 
-	public Manzana() {
+	Serpiente s;
+
+	Point p;
+
+	public Manzana(Serpiente s, Point p) {
 		super();
-		crearManzana(true);
+		this.s = s;
+		this.p = p;
+		crearManzana(true, s, p);
 	}
 
-	public void crearManzana(boolean isConstructor) {
+	public void crearManzana(boolean isConstructor, Serpiente s, Point p) {
 
-		if (isConstructor || Herramientas.comprobarColision(GestorJuego.getS().getSerpiente().get(0), manzana)) {
-			generarCuadradoAleatorio();
+		if (isConstructor || Herramientas.comprobarColision(s.getSerpiente().get(0), manzana)) {
+			generarCuadradoAleatorio(s, p);
+			s.comer();
 		}
 	}
-	
-	private void generarCuadradoAleatorio() {
+
+	private void generarCuadradoAleatorio(Serpiente s, Point p) {
 		Random rng = new Random();
-		int x = rng.nextInt(Constantes.LARGO_MAPA);
-		if (x % Constantes.ANCHO > 0) {
-			x = x - x % Constantes.ANCHO;
+		int x = rng.nextInt(Constantes.LARGO_TABLERO) + p.x;
+		if (x % Constantes.LARGO > 0) {
+			x = x - x % Constantes.LARGO;
 		}
-		int y = rng.nextInt(Constantes.ALTO_MAPA);
+		int y = rng.nextInt(Constantes.ALTO_TABLERO) + p.y;
 		if (y % Constantes.ALTO > 0) {
 			y = y - y % Constantes.ALTO;
 		}
 		if (manzana == null) {
-			manzana = new Cuadrado(x,y);
-		}else {
-			manzana.setX(x);
-			manzana.setY(y);
+			manzana = new Cuadrado(new Point(x, y));
+		} else {
+			manzana.setP(new Point(x, y));
 		}
-		for (Cuadrado s : GestorJuego.getS().getSerpiente()) {
-			if(Herramientas.comprobarColision(s, manzana)) {
-				generarCuadradoAleatorio();
+		for (Cuadrado act : s.getSerpiente()) {
+			if (Herramientas.comprobarColision(act, manzana)) {
+				generarCuadradoAleatorio(s, p);
 			}
 		}
 	}
 
 	@Override
 	public void actualizar() {
-		crearManzana(false);
+		crearManzana(false, s, p);
 	}
 
 	@Override
 	public void dibujar(Graphics g) {
 		g.setColor(Color.RED);
-		g.fillRect(manzana.getX(), manzana.getY(), manzana.getAnchura(), manzana.getAltura());
+		g.fillRect(manzana.getP().x, manzana.getP().y, manzana.getAnchura(), manzana.getAltura());
 	}
 
 	public Cuadrado getManzana() {

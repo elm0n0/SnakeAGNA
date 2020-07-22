@@ -1,35 +1,43 @@
 package principal.maquinaestados.estados;
 
 import java.awt.Graphics;
+import java.awt.Point;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-import principal.juego.manzana.Manzana;
-import principal.juego.serpiente.Serpiente;
+import principal.Constantes;
+import principal.juego.Tablero;
 import principal.maquinaestados.EstadoJuego;
 
 public class GestorJuego implements EstadoJuego {
+	private final static Tablero t = new Tablero(new Point(Constantes.MARGEN-1,Constantes.MARGEN-1), Constantes.LARGO_TABLERO+1, Constantes.ALTO_TABLERO+1);
+	private final static Tablero t2 = new Tablero(new Point(Constantes.MARGEN-1 + Constantes.MARGEN + Constantes.LARGO_TABLERO , Constantes.MARGEN-1), Constantes.LARGO_TABLERO+1, Constantes.ALTO_TABLERO+1);
+	List<Tablero> tList = new ArrayList<>(Arrays.asList(new Tablero[] {t,t2}));
 	
-	private final static Serpiente s = new Serpiente();
-	private final static Manzana  m = new Manzana(); 
+	List<Tablero> tList2 = construirTableros(8);
+	
 	@Override
 	public void actualizar() {
-		s.actualizar();
-		m.actualizar();
+		for (Tablero t : tList) {
+			t.actualizar();
+		}
+	}
+
+	private List<Tablero> construirTableros(Integer nTableros) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public void dibujar(Graphics g) {
-		s.dibujar(g);
-		m.dibujar(g);
-	}
-
-	public static Serpiente getS() {
-		return s;
-	}
-
-	public static Manzana getM() {
-		return m;
+		for (Tablero t : tList) {
+			t.dibujar(g);
+		}
 	}
 	
-	
+	public static Tablero getT() {
+		return t;
+	}
 	
 }

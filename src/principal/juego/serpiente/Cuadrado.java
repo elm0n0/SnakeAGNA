@@ -2,47 +2,61 @@ package principal.juego.serpiente;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 
 import principal.Constantes;
 import principal.maquinaestados.EstadoJuego;
 
 public class Cuadrado implements EstadoJuego{
 	
-	int x;
-	int y;
+	Point p;
 	int altura;
 	int anchura;
-	public Cuadrado(int x, int y) {
+	public Cuadrado(Point p) {
 		super();
-		this.x = x;
-		this.y = y;
+		this.p = p;
 		this.altura = Constantes.ALTO;
-		this.anchura = Constantes.ANCHO;
+		this.anchura = Constantes.LARGO;
 	}
-	public int getX() {
-		return x;
+	
+	
+	
+	public Point getP() {
+		return p;
 	}
-	public void setX(int x) {
-		this.x = x;
+
+
+
+	public void setP(Point p) {
+		this.p = p;
 	}
-	public int getY() {
-		return y;
-	}
-	public void setY(int y) {
-		this.y = y;
-	}
+
+
+
 	public int getAltura() {
 		return altura;
 	}
+
+
+
 	public void setAltura(int altura) {
 		this.altura = altura;
 	}
+
+
+
 	public int getAnchura() {
 		return anchura;
 	}
+
+
+
 	public void setAnchura(int anchura) {
 		this.anchura = anchura;
 	}
+
+
+
 	@Override
 	public void actualizar() {
 		
@@ -50,7 +64,6 @@ public class Cuadrado implements EstadoJuego{
 	@Override
 	public void dibujar(Graphics g) {
 		g.setColor(Color.BLUE);
-		g.fillRect(x, y, anchura, altura);
-		
+		g.fillRect(this.p.x, this.p.y, anchura, altura);
 	}
 }
