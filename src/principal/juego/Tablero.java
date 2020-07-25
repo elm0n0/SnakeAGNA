@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 
+import principal.Constantes;
 import principal.juego.manzana.Manzana;
 import principal.juego.serpiente.Serpiente;
 import principal.maquinaestados.EstadoJuego;
@@ -21,17 +22,13 @@ public class Tablero implements EstadoJuego {
 		this.p = p;
 		this.ancho = ancho;
 		this.alto = alto;
-		this.s = crearSerpiente(p,ancho,alto);
+		this.s = new Serpiente(p, ancho, alto);
 		this.m = crearManzana(s);
 	}
-	
+
 	private Manzana crearManzana(Serpiente s2) {
 		Manzana m = new Manzana(s2,p);
 		return m;
-	}
-
-	private Serpiente crearSerpiente(Point p, int ancho, int alto) {
-		return new Serpiente(p,ancho,alto);
 	}
 
 	@Override
@@ -44,7 +41,7 @@ public class Tablero implements EstadoJuego {
 	@Override
 	public void dibujar(Graphics g) {
 		g.setColor(Color.YELLOW);
-		g.drawRect(p.x, p.y, ancho, alto);
+		g.drawRect(p.x-1, p.y-1, ancho + Constantes.MARGEN +1 , alto + Constantes.MARGEN +1);
 		s.dibujar(g);
 		m.dibujar(g);
 	}

@@ -30,7 +30,10 @@ public class Manzana implements EstadoJuego {
 
 		if (isConstructor || Herramientas.comprobarColision(s.getSerpiente().get(0), manzana)) {
 			generarCuadradoAleatorio(s, p);
-			s.comer();
+			if (!isConstructor) {
+				s.comer();
+			}
+			
 		}
 	}
 

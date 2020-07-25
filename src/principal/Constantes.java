@@ -4,7 +4,7 @@ public class Constantes {
 	
 	public static final int VELOCIDAD = 20;
 
-	public static final int MARGEN = 5;
+	public static final int MARGEN = 10;
 
 	public static String TITULO ="SNAKE GARN";
 	
@@ -14,10 +14,10 @@ public class Constantes {
 	
 	public static int LARGO_TABLERO = 200;
 	
-	public static int ALTO_TABLERO = 150;
+	public static int ALTO_TABLERO = 200;
 	
-	public static int LARGO = 5;
+	public static int LARGO = 10;
 	
-	public static int ALTO = 5;
+	public static int ALTO = 10;
 
 }
