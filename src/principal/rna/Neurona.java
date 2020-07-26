@@ -12,12 +12,23 @@ public class Neurona {
 	float[] entrada;
 	float tasaDeAprendizaje;
 	float salida;
+	Random rng;
 	
-	public Neurona(int Nentradas, float ta) {
+	public Neurona(int Nentradas, Random rng) {
+		super();
+		pesosA = new float[Nentradas];
+		pesos = new float[Nentradas];
+		tasaDeAprendizaje = 0.3F;
+		this.rng = rng;
+		aprender();
+	}
+	
+	public Neurona(int Nentradas, Random rng, float ta) {
 		super();
 		pesosA = new float[Nentradas];
 		pesos = new float[Nentradas];
 		tasaDeAprendizaje = ta;
+		this.rng = rng;
 		aprender();
 	}
 
@@ -28,8 +39,8 @@ public class Neurona {
 	// ajuste de error ->
 	// peso = pesoanterior + tasa de aprendizaje * error * entrada;
 
-	public float Salida() {
-		return sigmoid(sumaPonderada(entrada));
+	public float Salida(float[] entradas) {
+		return sigmoid(sumaPonderada(entradas));
 	}
 
 	private float sumaPonderada(float[] entradas) {
@@ -48,7 +59,6 @@ public class Neurona {
 	}
 	
 	public void aprender() {
-		Random rng = new Random();
 		for (int i = 0; i < pesos.length; i++) {
 			pesosA[i] = rng.nextFloat() - rng.nextFloat(); 
 		}
@@ -85,19 +95,23 @@ public class Neurona {
 			contador++;
 			// peso = pesoAnterior + tasa de aprendizaje * error * entrada;
 			if (salidas(new float[] {1f,1f}) != 1) {
-				aprender(new float[] {1f,1f}, 1);
+//				aprender(new float[] {1f,1f}, 1);
+				aprender();
 				sw = false;
 			}
 			if (salidas(new float[] {1f,0f}) != 0) {
-				aprender(new float[] {1f,0f}, 0);
+//				aprender(new float[] {1f,0f}, 0);
+				aprender();
 				sw = false;
 			}
 			if (salidas(new float[] {0f,1f}) != 0) {
-				aprender(new float[] {0f,1f}, 0);
+//				aprender(new float[] {0f,1f}, 0);
+				aprender();
 				sw = false;
 			}
 			if (salidas(new float[] {0f,0f}) != 0) {
-				aprender(new float[] {0f,0f}, 0);
+//				aprender(new float[] {0f,0f}, 0);
+				aprender();
 				sw = false;
 			}
 			StringBuilder builder = new StringBuilder();
