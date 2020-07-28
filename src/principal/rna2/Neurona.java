@@ -1,5 +1,6 @@
 package principal.rna2;
 
+import java.util.Arrays;
 import java.util.Random;
 
 public class Neurona {
@@ -19,10 +20,11 @@ public class Neurona {
 	}
 	
 	public double Activacion(Double[] entradas) {
-		double ultimaActivacion = umbral;
-		for (int i = 0; i < entradas.length; i++) {
-			ultimaActivacion += entradas[i] * pesos[i];
+		double activacion = umbral;
+		for (int i = 0; i < pesos.length; i++) {
+			activacion += pesos[i] * entradas[i];
 		}
+		ultimaActivacion = activacion;
 		return Sigmoid(ultimaActivacion);
 	}
 
@@ -33,6 +35,19 @@ public class Neurona {
 	public static double SigmoidDerivada(double entrada) {
 		double y = Sigmoid(entrada);
 		return y * (1 - y);
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Neurona [pesos=");
+		builder.append(Arrays.toString(pesos));
+		builder.append(", umbral=");
+		builder.append(umbral);
+		builder.append(", ultimaActivacion=");
+		builder.append(ultimaActivacion);
+		builder.append("]");
+		return builder.toString();
 	}
 
 }
